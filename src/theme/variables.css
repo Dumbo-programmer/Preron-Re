@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+:root {
+  --ion-text-color: white;
+  --ion-background-color: rgb(37, 32, 32);
+	--ion-color-primary: #31b1d1;
+	--ion-color-primary-rgb: 71,194,225;
+	--ion-color-primary-contrast: #ffffff;
+	--ion-color-primary-contrast-rgb: 0,0,0;
+	--ion-color-primary-shade: #36a0bb;
+	--ion-color-primary-tint: #51c6e4;
+    --ion-card-title-color: aliceblue;
+	--ion-color-secondary: #3f8f8b;
+	--ion-color-secondary-rgb: 63,143,139;
+	--ion-color-secondary-contrast: #ffffff;
+	--ion-color-secondary-contrast-rgb: 255,255,255;
+	--ion-color-secondary-shade: #377e7a;
+	--ion-color-secondary-tint: #529a97;
+	--ion-font-family: 'Work Sans', sans-serif;
+	--ion-color-tertiary: #848ef5;
+	--ion-color-tertiary-rgb: 132,142,245;
+	--ion-color-tertiary-contrast: #ffffff;
+	--ion-color-tertiary-contrast-rgb: 0,0,0;
+	--ion-color-tertiary-shade: #747dd8;
+	--ion-color-tertiary-tint: #9099f6;
+
+	--ion-color-success: #00cc52;
+	--ion-color-success-rgb: 0,204,82;
+	--ion-color-success-contrast: #ffffff;
+	--ion-color-success-contrast-rgb: 0,0,0;
+	--ion-color-success-shade: #00b448;
+	--ion-color-success-tint: #1ad163;
+
+	--ion-color-warning: #f0d000;
+	--ion-color-warning-rgb: 240,208,0;
+	--ion-color-warning-contrast: #ffffff;
+	--ion-color-warning-contrast-rgb: 0,0,0;
+	--ion-color-warning-shade: #d3b700;
+	--ion-color-warning-tint: #f2d51a;
+
+	--ion-color-danger: #eb445a;
+	--ion-color-danger-rgb: 235,68,90;
+	--ion-color-danger-contrast: #ffffff;
+	--ion-color-danger-contrast-rgb: 255,255,255;
+	--ion-color-danger-shade: #cf3c4f;
+	--ion-color-danger-tint: #ed576b;
+
+	--ion-color-medium: #92949c;
+	--ion-color-medium-rgb: 146,148,156;
+	--ion-color-medium-contrast: #000000;
+	--ion-color-medium-contrast-rgb: 0,0,0;
+	--ion-color-medium-shade: #808289;
+	--ion-color-medium-tint: #9d9fa6;
+
+	--ion-color-light: #e3e3e3;
+	--ion-color-light-rgb: 227,227,227;
+	--ion-color-light-contrast: #000000;
+	--ion-color-light-contrast-rgb: 0,0,0;
+	--ion-color-light-shade: #c8c8c8;
+	--ion-color-light-tint: #e6e6e6;
+
+}

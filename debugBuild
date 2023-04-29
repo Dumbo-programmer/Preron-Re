@@ -1,0 +1,4 @@
+cd android 
+./gradlew assembleDebug && cd ..
+cd android && cd app
+zipalign -v -p 4 debug-app.apk preron-deubg-aligned.apk

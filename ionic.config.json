@@ -1,0 +1,7 @@
+{
+  "name": "Preron",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
