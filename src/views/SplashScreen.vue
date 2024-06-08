@@ -5,12 +5,17 @@
     <br>
     <br>
     <br>
-    <ion-title>Preron</ion-title>
+    <ion-title class="jumping-title">
+Preron
+
+    </ion-title>
     <br>
     <br>
     <br>
 
-      <swiper :modules="modules" :options="{autoplay:{delay: 10}, slidesPerView: 1, loop: true, pagination: { el: '.swiper-pagination' } }">
+<!--      <swiper :modules="modules" :options="{autoplay:{delay: 10}, slidesPerView: 1, loop: true, pagination: { el: '.swiper-pagination' } }">-->
+        <swiper :modules="modules" :options="swiperOptions">
+
         <swiper-slide>
           <ion-card>
             <img src="./box.png" alt="Slide 1 Image" :style="{ width: '100%', height: 'auto' }">
@@ -95,9 +100,15 @@ firebase.initializeApp({
       IonButton
     },
     setup() {
-      return {
-        modules: [Autoplay, Pagination],
-      };
+    // Inside the setup function
+return {
+  modules: [Autoplay, Pagination],
+  swiperOptions: {
+    effect: 'cube', // Choose a desired effect
+    // ... other options
+  }
+};
+
     },
   });
   firebase.auth().onAuthStateChanged(user => {
@@ -175,5 +186,46 @@ firebase.auth().signOut();
 ion-button{
   color: white;
 }
+/*anim*/
+ion-card-header,
+ion-card-content {
+  opacity: 0;
+  animation: fade-in 4s forwards;
+}
+ion-card-header{
+  color: #737373;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+ion-button {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+ion-button:hover {
+  color: white;
+}
+ion-card {
+  transform: scale(0.9);
+  transition: transform 0.5s;
+}
+
+ion-card:hover {
+  transform: scale(1);
+
+}
+
+
+
+/*Logo*/
+
+
   /*End*/
 </style>

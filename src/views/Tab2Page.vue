@@ -19,17 +19,16 @@
 
 <ion-col>
 
-        <ion-item class="glass"> 
-    <ion-label>What do you want to do today?</ion-label>
-
-  </ion-item> 
+  <ion-item class="glass animate-opacity">
+            <ion-label>What do you want to do today?</ion-label>
+          </ion-item> 
 <ion-grid>
 <ion-row>   
 <ion-col size="6">      
-<ion-card color="medium">
+  <ion-card color="medium" class="animate-card">
   <ion-card-header>
   </ion-card-header>
-<ion-button href="tabs/tab4" fill="outline" color="secondary">Send</ion-button>
+<ion-button href="tabs/tab4" fill="outline" color="secondary" :disabled="isButtonDisabled">Send</ion-button>
 
   <ion-card-content>
   I want to send a package
@@ -38,16 +37,18 @@
 </ion-col>
 
 <ion-col size="6">
-<ion-card color="medium">
+  <ion-card color="medium" class="animate-card">
   <ion-card-header>
   </ion-card-header>
-  <ion-button href="tabs/tab5" fill="outline" color="secondary">Receive</ion-button>
+  <ion-button href="tabs/tab5" :disabled="isButtonDisabled" fill="outline" color="secondary">Receive</ion-button>
   <ion-card-content>
   I want to receive a package
 </ion-card-content>
 </ion-card>
 </ion-col>
 </ion-row>
+    <p v-if="isButtonDisabled" class="error-text">You cannot place more orders until the current one is completed.</p>
+
 </ion-grid>
 </ion-col>
 </ion-row>
@@ -79,10 +80,21 @@ export default {
     IonRow,
     IonGrid
   },
+  data(){
+    return{
+    isButtonDisabled: false,
+    }
+  },
   methods:{
     dismiss() {
         this.$refs.modal.$el.dismiss();
-      }
+      },
+     disableButton() {
+      this.isButtonDisabled = true;
+    },
+    enableButton() {
+      this.isButtonDisabled = false;
+    },
   },
   created() {
     firebase.auth().onAuthStateChanged(user => {
@@ -94,6 +106,9 @@ export default {
 
         if(doc.data().status != "done" || doc.data().status != "delivered"){
 console.log('button disable')
+
+        this.disableButton();
+
         }
       });
     });
@@ -167,5 +182,60 @@ ion-label {
     margin: auto;
 
   }
+  .animate-opacity {
+  animation: fade-in 1.5s forwards;
+  opacity: 0;
+}
 
+.animate-card {
+  animation: scaleUp 1.5s forwards;
+  transform: scale(0.9);
+  transition: transform 0.5s;
+}
+
+.error-text {
+  animation: fadeInBottom 1.5s forwards;
+  opacity: 0;
+  margin-top: 10px;
+}
+
+@keyframes jumpText {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>

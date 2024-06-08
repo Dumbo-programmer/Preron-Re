@@ -134,5 +134,34 @@ IonSpinner, IonCardHeader, IonCardTitle, IonContent, IonButton, IonInput, IonLab
     align-items: center;
 
   }
-  
+  .ion-item {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.ion-item:focus-within {
+  transform: scale(1.03);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+ion-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  color: red;
+  animation: shake 0.5s ease infinite;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
   </style>

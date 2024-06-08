@@ -12,6 +12,7 @@
         </ion-toolbar>
       </ion-header>
       <div v-if="!loaded">
+
       <!-- Render the skeleton animation while the data is being fetched -->
       <div class="skeleton-container">
         <div class="skeleton-item skeleton-item-1"></div>
@@ -67,6 +68,12 @@
    <ion-card :color=colo v-for="(packages, index) in packages" :key="index">
       <ion-card-header>New Delivery pending({{ packages.route }})
         <ion-card-title>{{ packages.Name }}</ion-card-title>
+        <IonIcon
+    name="close"
+    class="close-button"
+    @click="removeNotification(index)"
+  ></IonIcon>
+
       </ion-card-header>
       <ion-card-content>
     <p>Package Type: {{ packages.type }}</p>
@@ -96,7 +103,7 @@ import 'firebase/auth';
 
 //import 'firebase/messaging';
 import { defineComponent } from 'vue';
-import 'ionicons'
+import { IonIcon } from '@ionic/vue';
 
 if(firebase.apps.length === 0) {  
   firebase.initializeApp({
@@ -149,6 +156,7 @@ export default defineComponent({
     IonTitle,
     IonContent,
     IonItem,
+
   },
   data() {
   return {
@@ -169,8 +177,6 @@ firebase.firestore().collection('users').doc(user.email).get()
       this.user = doc.data();
  this.loaded = true;
 
-    } else if(!doc.exists){
-      window.location = '/'
     }
   })
   let ref = firebase.firestore().collection("deliver").where("user", "==", user.email)
@@ -187,10 +193,7 @@ this.packages.push({ id: doc.id, ...doc.data() });
       });
     }
   })
-} else {
-    console.log("User is not signed in.");
-    window.location = "/"
-  }
+}
 
   });
 /////
@@ -206,6 +209,9 @@ this.colo = "success"
   this.modal = true;
 
     },
+      removeNotification(index) {
+    this.packages.splice(index, 1);
+  },
     logout() {
       this.isProcessing = true;
       setTimeout(() => {
@@ -214,6 +220,7 @@ this.colo = "success"
       }).catch(function(error) {
         console.error(error);
       });     
+        window.location= "/"
       }, 3000);
     },
 save(){
@@ -250,6 +257,15 @@ computed:{
     align-items: center;
 
 }
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 16px;
+    color: #888;
+    cursor: pointer;
+  }
+
 ion-title{
  background-clip: text;
   background-image: linear-gradient(to right, #ffffff, #ffffff);
@@ -266,13 +282,20 @@ ion-title{
     margin: auto;
 
   }
-  ion-avatar {
-    margin: auto;
-    text-align: center;
+  .ion-avatar {
+  animation: fadeInUp 1s ease-in-out;
+}
 
-
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 ion-item{
   text-align: center;
 }
@@ -328,5 +351,23 @@ border: 1px solid rgb(255, 255, 255);
   text-decoration: underline;
   font-size: 25px;
 }
+.ion-card {
+  animation: fadeIn 0.8s ease-in-out;
+  margin-bottom: 16px;
+}
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-button {
+  animation: fadeIn 0.5s ease-in-out;
+}
 </style>

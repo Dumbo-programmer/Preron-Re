@@ -58,7 +58,7 @@ import 'firebase/firestore'
 import 'firebase/auth'
 import BackButton from "./BackButton.vue";
 import { IonSpinner, IonCardHeader, IonCardTitle, IonContent, IonButton, IonInput, IonLabel, IonCard, IonCardContent, IonItem } from '@ionic/vue'
-import axios from 'axios'
+
 </script>
 <script>
 if (firebase.apps.length === 0) {
@@ -75,7 +75,10 @@ if (firebase.apps.length === 0) {
 }
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
+  setTimeout(() => {
     window.location.href = '/tabs/tab1'
+ 
+  }, 5000);
   }
 })
 export default {
@@ -93,7 +96,7 @@ export default {
       password: "",
       isProcessing: false,
       error: ""
-    }
+   }
   },
 computed:{
 confirm(){
@@ -102,7 +105,7 @@ if(this.inputPost.length == 4 && this.phoneNumber.length == 11){
   this.error = ""
   return this.name && this.password && this.phoneNumber && this.email && this.inputCity && this.inputHouse && this.inputPost && this.inputStreet;
 }
-if(this.password < 5){
+if(this.password > 0 && this.password < 5){
 this.error = "Please write a stronger password"
 return false;
 }
@@ -116,11 +119,13 @@ this.error = "Please write a valid phone number"
   return false;
 }
 return false;
-}
+},
+
+
   },
 methods:{
-    signup() {
-      this.isProcessing = true;
+signup() {
+  this.isProcessing = true;
         firebase.firestore().collection('users').doc(this.email).set({
           name: this.name,
           phoneNumber: this.phoneNumber,
@@ -130,11 +135,10 @@ methods:{
           inputPost: this.inputPost,
           inputStreet: this.inputStreet,
         }, { merge: true })
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
+
+      firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
           .then(() => {
-            const to = this.email;
+            /*const to = this.email;
             const subject = 'Welcome!';
             const text = 'We\'re glad to have you, now let\'s send some parcels!';
 
@@ -149,12 +153,17 @@ methods:{
               .catch(error => {
                 this.error = error
                 console.log(error);
-              });
+              });*/
             // Sign up successful
             console.log("working")
             this.isProcessing = false;
             // Navigate to home page
+
+setTimeout(() => {
+  
             window.location.href = "/tabs/tab1"
+          }, 5000);
+
           })
           .catch((error) => {
             this.isProcessing = false;
@@ -163,6 +172,7 @@ methods:{
           });
 
     },
+
   }
 }
 </script>
@@ -176,4 +186,35 @@ body {
   text-align: center;
   align-items: center;
 }
+ion-item {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  ion-item:focus-within {
+    transform: scale(1.012);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  .processing {
+    pointer-events: none; /* Disable interaction while processing */
+  }
+
+ 
+  ion-label.error {
+    color: red;
+    animation: shake 0.5s ease infinite;
+  }
+
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(5px);
+    }
+  }
+ 
+
 </style>
